@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Club — The Multi-Sport Build</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F4EDDF;
+    --cream-2:#EFE6D4;
+    --paper:#FBF7EE;
+    --ink:#21281F;
+    --ink-soft:#4A5346;
+    --green:#2C4A33;
+    --green-deep:#1E3424;
+    --amber:#C2622C;
+    --amber-soft:#D98B4A;
+    --line:rgba(33,40,31,.14);
+    --line-strong:rgba(33,40,31,.28);
+    --shadow:0 24px 60px -28px rgba(30,52,36,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Hanken Grotesk',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(900px 500px at 85% -5%, rgba(194,98,44,.10), transparent 60%),
+      radial-gradient(800px 600px at -5% 105%, rgba(44,74,51,.12), transparent 55%);
+  }
+  /* grain */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 28px}
+
+  /* ---- intro reveal ---- */
+  .reveal{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .d1{animation-delay:.05s}.d2{animation-delay:.18s}.d3{animation-delay:.31s}
+  .d4{animation-delay:.44s}.d5{animation-delay:.57s}
+
+  /* ---- masthead ---- */
+  header{padding:64px 0 34px}
+  .kicker{
+    font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--amber);font-weight:600;display:flex;align-items:center;gap:14px;
+  }
+  .kicker::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:clamp(40px,7vw,76px);line-height:.98;letter-spacing:-.02em;
+    margin:22px 0 0;color:var(--green-deep);
+  }
+  h1 em{font-style:italic;color:var(--amber)}
+  .sub{
+    margin-top:20px;max-width:620px;font-size:clamp(16px,2vw,19px);
+    color:var(--ink-soft);
+  }
+  .meta{
+    margin-top:30px;display:flex;flex-wrap:wrap;gap:10px 26px;
+    font-size:13.5px;color:var(--ink-soft);
+  }
+  .meta b{color:var(--ink);font-weight:600}
+
+  /* ---- framing slide ---- */
+  .frame{
+    margin:18px 0 54px;background:var(--green-deep);color:#F3EAD8;
+    border-radius:22px;padding:clamp(30px,5vw,54px);box-shadow:var(--shadow);
+    position:relative;overflow:hidden;
+  }
+  .frame::before{
+    content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;
+    border:1px solid rgba(243,234,216,.16);border-radius:50%;
+  }
+  .frame::after{
+    content:"";position:absolute;right:-10px;top:-10px;width:180px;height:180px;
+    border:1px solid rgba(243,234,216,.12);border-radius:50%;
+  }
+  .frame .lab{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--amber-soft);font-weight:600}
+  .frame h2{
+    font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,3.6vw,34px);
+    line-height:1.22;margin:16px 0 0;max-width:760px;letter-spacing:-.01em;
+  }
+  .frame h2 b{font-weight:600;color:#fff}
+  .sports{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;position:relative;z-index:1}
+  .chip{
+    border:1px solid rgba(243,234,216,.3);border-radius:999px;
+    padding:9px 18px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:9px;
+  }
+  .chip span{color:var(--amber-soft);font-weight:600}
+  .frame .price-note{margin-top:24px;font-size:14.5px;color:rgba(243,234,216,.78);position:relative;z-index:1}
+  .frame .price-note b{color:#fff}
+
+  /* ---- section heading ---- */
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin:0 0 26px}
+  .sec-head .n{font-family:'Fraunces',serif;font-size:15px;color:var(--amber);font-weight:600}
+  .sec-head h3{
+    font-family:'Fraunces',serif;font-weight:500;font-size:clamp(22px,3vw,30px);
+    color:var(--green-deep);letter-spacing:-.01em;
+  }
+
+  /* ---- option cards ---- */
+  .cards{display:grid;grid-template-columns:1fr;gap:22px;margin-bottom:60px}
+  @media(min-width:880px){.cards{grid-template-columns:repeat(3,1fr);align-items:start}}
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:30px 26px;position:relative;display:flex;flex-direction:column;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
+  }
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .card .tag{
+    font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;
+    color:var(--ink-soft);
+  }
+  .card h4{
+    font-family:'Fraunces',serif;font-weight:500;font-size:25px;
+    margin:10px 0 6px;color:var(--green-deep);letter-spacing:-.01em;
+  }
+  .card .head-note{font-size:13.5px;color:var(--ink-soft);min-height:20px}
+  .price{
+    margin:22px 0 4px;font-family:'Fraunces',serif;font-size:34px;font-weight:600;
+    color:var(--ink);line-height:1;letter-spacing:-.02em;
+  }
+  .price small{font-family:'Hanken Grotesk',sans-serif;font-size:14px;font-weight:500;color:var(--ink-soft);letter-spacing:0}
+  .price-sub{font-size:13px;color:var(--ink-soft);margin-bottom:20px}
+  .speed{
+    display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+    background:var(--cream-2);border-radius:999px;padding:7px 15px;
+    font-size:13px;font-weight:600;color:var(--green);margin-bottom:20px;
+  }
+  .speed .dot{width:7px;height:7px;border-radius:50%;background:var(--amber)}
+  ul.feat{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:4px}
+  ul.feat li{font-size:14px;color:var(--ink-soft);padding-left:24px;position:relative;line-height:1.5}
+  ul.feat li::before{
+    content:"";position:absolute;left:0;top:7px;width:11px;height:11px;
+    border:1.5px solid var(--green);border-radius:50%;
+  }
+  ul.feat li.warn::before{border-color:var(--amber);background:transparent}
+  ul.feat li b{color:var(--ink);font-weight:600}
+  .best{
+    margin-top:auto;padding-top:22px;font-size:13px;color:var(--ink-soft);
+    border-top:1px dashed var(--line-strong);
+  }
+  .best b{color:var(--green);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;display:block;margin-bottom:5px}
+
+  /* hero card (option 3) */
+  .card.hero{
+    background:var(--green-deep);border-color:var(--green-deep);color:#F3EAD8;
+    box-shadow:var(--shadow);
+  }
+  @media(min-width:880px){.card.hero{transform:translateY(-14px)}.card.hero:hover{transform:translateY(-19px)}}
+  .card.hero .ribbon{
+    position:absolute;top:-13px;left:26px;background:var(--amber);color:#fff;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+    padding:6px 14px;border-radius:999px;box-shadow:0 8px 18px -6px rgba(194,98,44,.6);
+  }
+  .card.hero .tag{color:var(--amber-soft)}
+  .card.hero h4{color:#fff}
+  .card.hero .head-note{color:rgba(243,234,216,.72)}
+  .card.hero .price{color:#fff}
+  .card.hero .price small{color:rgba(243,234,216,.7)}
+  .card.hero .price-sub{color:rgba(243,234,216,.7)}
+  .card.hero .speed{background:rgba(243,234,216,.12);color:#F3EAD8}
+  .card.hero ul.feat li{color:rgba(243,234,216,.82)}
+  .card.hero ul.feat li b{color:#fff}
+  .card.hero ul.feat li::before{border-color:var(--amber-soft)}
+  .card.hero .best{border-top-color:rgba(243,234,216,.28);color:rgba(243,234,216,.72)}
+  .card.hero .best b{color:var(--amber-soft)}
+
+  /* add-on box inside hero */
+  .addon{
+    margin-top:18px;background:rgba(243,234,216,.09);border:1px solid rgba(243,234,216,.18);
+    border-radius:14px;padding:16px 16px;
+  }
+  .addon .at{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-soft);font-weight:700}
+  .addon p{font-size:13px;color:rgba(243,234,216,.82);margin-top:7px;line-height:1.5}
+  .addon p b{color:#fff;font-weight:600}
+
+  /* ---- comparison ---- */
+  .compare{margin-bottom:60px}
+  .tablewrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{
+    background:var(--cream-2);font-family:'Fraunces',serif;font-weight:500;font-size:15px;
+    color:var(--green-deep);
+  }
+  thead th:first-child{color:var(--ink-soft);font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  thead th.hl{background:var(--green-deep);color:#fff}
+  tbody th{font-weight:600;color:var(--ink);width:30%}
+  td{color:var(--ink-soft)}
+  td.hl{background:rgba(44,74,51,.06);color:var(--green);font-weight:600}
+  tr:last-child th,tr:last-child td{border-bottom:none}
+  .mini{font-size:12px;color:var(--ink-soft);margin-top:12px;text-align:right}
+
+  /* ---- recommendation ---- */
+  .rec{
+    background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:16px;padding:clamp(26px,4vw,40px);margin-bottom:54px;
+  }
+  .rec .lab{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);font-weight:700}
+  .rec h3{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(22px,3vw,28px);color:var(--green-deep);margin:12px 0 14px;letter-spacing:-.01em}
+  .rec p{font-size:15.5px;color:var(--ink-soft);max-width:760px}
+  .rec p+p{margin-top:14px}
+  .rec b{color:var(--ink);font-weight:600}
+
+  /* ---- next steps ---- */
+  .steps{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:64px}
+  @media(min-width:680px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .step .num{font-family:'Fraunces',serif;font-size:30px;color:var(--amber);font-weight:600;line-height:1}
+  .step h5{font-size:15px;margin:10px 0 5px;color:var(--ink);font-weight:600}
+  .step p{font-size:13.5px;color:var(--ink-soft)}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--line);padding:34px 0 60px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center}
+  .brand{font-family:'Fraunces',serif;font-size:20px;color:var(--green-deep);font-weight:600}
+  .brand span{color:var(--amber)}
+  footer .contact{font-size:13px;color:var(--ink-soft);text-align:right;line-height:1.7}
+  footer .contact b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker reveal d1">Prepared for Lawrence &nbsp;·&nbsp; Open Club</div>
+    <h1 class="reveal d2">Three sports.<br>One decision: <em>time.</em></h1>
+    <p class="sub reveal d3">Tennis, Padel and Pickleball are ready to be built. The scope is set and the price is fixed — the only real variable left is how fast you want them live. Here are three honest ways to get there.</p>
+    <div class="meta reveal d4">
+      <div>Scope: <b>3 full sport builds</b></div>
+      <div>Build value: <b>£6,000 each &nbsp;·&nbsp; £18,000 total</b></div>
+      <div>Indicative build time: <b>~3 weeks per sport</b></div>
+    </div>
+  </header>
+
+  <section class="frame reveal d5">
+    <div class="lab">The situation</div>
+    <h2>Everything that decides this is <b>speed</b>. The work is the same in all three paths — what changes is how much of your time and momentum it costs to get Tennis, Padel and Pickleball into players' hands.</h2>
+    <div class="sports">
+      <div class="chip"><span>01</span> Tennis</div>
+      <div class="chip"><span>02</span> Padel</div>
+      <div class="chip"><span>03</span> Pickleball</div>
+    </div>
+    <p class="price-note">Each build is a complete sport branch — back end, front end, UI and QA — quoted at <b>£6,000</b>. The three paths below all deliver the same product. They differ only on <b>how fast, how much upfront, and what keeps running while we build.</b></p>
+  </section>
+
+  <section style="margin-bottom:14px">
+    <div class="sec-head">
+      <span class="n">→</span>
+      <h3>Your three paths</h3>
+    </div>
+  </section>
+
+  <section class="cards">
+
+    <!-- OPTION 1 -->
+    <article class="card">
+      <div class="tag">Option 01</div>
+      <h4>The Full Sprint</h4>
+      <div class="head-note">Pay outright. Get it fastest.</div>
+      <div class="price">£18,000 <small>one-off</small></div>
+      <div class="price-sub">Retainer continues at £3.5k/mo alongside</div>
+      <div class="speed"><span class="dot"></span> All three live in 8 weeks</div>
+      <ul class="feat">
+        <li>A <b>full dedicated team in parallel</b> — back end, front end, UI and QA all working at once</li>
+        <li>The <b>quickest possible</b> route to all three sports being live</li>
+        <li>Your <b>marketing and updates never pause</b> — the retainer keeps running beside the build</li>
+        <li>Clean, one-time investment with no ongoing change to your monthly</li>
+      </ul>
+      <div class="best"><b>Best if</b> time is everything and a single upfront investment works for your cash flow.</div>
+    </article>
+
+    <!-- OPTION 3 (HERO, placed centre) -->
+    <article class="card hero">
+      <div class="ribbon">Recommended</div>
+      <div class="tag">Option 03</div>
+      <h4>Scale the Retainer</h4>
+      <div class="head-note">Spread the cost. Keep momentum.</div>
+      <div class="price">£8,000 <small>/ month × 4</small></div>
+      <div class="price-sub">Then drops back to £3.5k/mo</div>
+      <div class="speed"><span class="dot"></span> All three live in ~4 months</div>
+      <ul class="feat">
+        <li><b>£3.5k keeps your marketing & updates running</b> + <b>£4.5k funds a dedicated build team</b></li>
+        <li>That £4.5k × 4 covers the <b>full £18k build — spread, no upfront hit</b></li>
+        <li>A team <b>built for the job</b> — well ahead of the retainer route, with your update work never stretched</li>
+        <li><b>Reverts to £3.5k/mo</b> afterwards — no permanent increase</li>
+      </ul>
+      <div class="addon">
+        <div class="at">Optional · PLUS</div>
+        <p><b>+£1,000/month</b> (discounted rate) reserves dev capacity for any new add-ons or changes that come up mid-build — so nothing waits in a queue.</p>
+      </div>
+      <div class="best"><b>Best if</b> you want almost the full speed without a big upfront cost, and you want everything to keep running.</div>
+    </article>
+
+    <!-- OPTION 2 -->
+    <article class="card">
+      <div class="tag">Option 02</div>
+      <h4>Retainer Absorb</h4>
+      <div class="head-note">No new spend. Slowest route.</div>
+      <div class="price">£0 <small>new</small></div>
+      <div class="price-sub">Built inside your current £3.5k/mo</div>
+      <div class="speed"><span class="dot"></span> All three live in ~6 months</div>
+      <ul class="feat">
+        <li>Delivered within the <b>existing £3.5k/mo retainer</b> — no additional investment</li>
+        <li class="warn">That team's capacity is scoped for <b>updates and optimisations</b>, not heavy builds</li>
+        <li class="warn">Routing a full three-sport build through it <b>stretches delivery to ~6 months</b>, and competes for time with your ongoing updates</li>
+        <li>Lowest headline cost, but by far the slowest to market</li>
+      </ul>
+      <div class="best"><b>Best if</b> there's no appetite for new spend and time genuinely isn't a concern.</div>
+    </article>
+
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="compare">
+    <div class="sec-head">
+      <span class="n">→</span>
+      <h3>Side by side</h3>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>01 · Full Sprint</th>
+            <th class="hl">03 · Scale Retainer</th>
+            <th>02 · Retainer Absorb</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Investment</th>
+            <td>£18,000 one-off</td>
+            <td class="hl">£8,000/mo × 4, then £3.5k</td>
+            <td>No new spend</td>
+          </tr>
+          <tr>
+            <th>All three live in</th>
+            <td>8 weeks</td>
+            <td class="hl">~4 months</td>
+            <td>~6 months</td>
+          </tr>
+          <tr>
+            <th>Team on the build</th>
+            <td>Full parallel team</td>
+            <td class="hl">Dedicated build team</td>
+            <td>Update team, stretched</td>
+          </tr>
+          <tr>
+            <th>Built for a job this size?</th>
+            <td>Yes</td>
+            <td class="hl">Yes</td>
+            <td>No — scoped for updates</td>
+          </tr>
+          <tr>
+            <th>Cash structure</th>
+            <td>Lump sum upfront</td>
+            <td class="hl">Spread over 4 months</td>
+            <td>Existing monthly</td>
+          </tr>
+          <tr>
+            <th>Best for</th>
+            <td>Maximum speed</td>
+            <td class="hl">Speed + cash-flow balance</td>
+            <td>Zero new spend</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mini">Timelines are indicative and subject to feedback and review cycles on each build.</p>
+  </section>
+
+  <!-- RECOMMENDATION -->
+  <section class="rec">
+    <div class="lab">My recommendation</div>
+    <h3>Option 03 gets all three sports built — without an £18k hit and without straining your team.</h3>
+    <p>If pure speed is the deciding factor, <b>the Full Sprint (01)</b> is the cleanest answer: pay once, full team in parallel, all three live in eight weeks.</p>
+    <p>For most situations, though, <b>Scaling the Retainer (03)</b> is the smarter balance. You spread the entire build across four months with <b>no lump sum</b>, you get a dedicated team built for the job, and your existing update and marketing work never gets stretched thin. Adding the optional PLUS keeps a dev on hand for changes as they surface, so the product keeps improving mid-build. <b>Retainer Absorb (02)</b> is on the table for transparency — but that team was scoped for updates and optimisations, not heavy builds, so pushing a full three-sport build through it drags delivery out to six months. It's the slowest route to market by a wide margin.</p>
+  </section>
+
+  <!-- NEXT STEPS -->
+  <section>
+    <div class="sec-head">
+      <span class="n">→</span>
+      <h3>Next steps</h3>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h5>Pick your path</h5>
+        <p>Confirm Option 01 or 03 (and whether you want the PLUS add-on on 03).</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h5>Lock the order</h5>
+        <p>We agree the build order across Tennis, Padel and Pickleball and set the start date.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h5>Kick off</h5>
+        <p>Team is assembled and the first sport build begins, with weekly progress updates.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brand">Zorian<span>.</span> &nbsp;<span style="color:var(--ink-soft);font-family:'Hanken Grotesk';font-size:13px;font-weight:500">× Open Club</span></div>
+    <div class="contact">
+      <b>Jaydon Goldman</b> &nbsp;·&nbsp; Zita Network Ltd<br>
+      Growth & Build Partner &nbsp;·&nbsp; +44 7821 260729
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
